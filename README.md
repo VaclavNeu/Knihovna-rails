@@ -28,5 +28,24 @@ Funkce
 - Sledování stavu výpůjček (aktivní / po termínu / vrácená)
 - Ochrana proti smazání knih a členů s aktivními výpůjčkami
 
+## Spuštění
+
+Je potřeba mít nainstalované Ruby 3.4.9 a MySQL.
+
+1. Je potřeba nainstalovat závislosti:
+   
+   bundle install
+   
+
+2. Je potřeba zkopírovat `.env.example` jako `.env` a vyplnit MySQL credentials:
+   
+   cp .env.example .env
+ 
+
+3. Je potřeba vytvořit databázi a načíst vzorová data:
+   
+   bin/rails db:prepare db:seed
+   
 
 
+   
