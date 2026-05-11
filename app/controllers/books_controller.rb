@@ -27,7 +27,7 @@ class BooksController < ApplicationController
       if @book.update(book_params)
         redirect_to book_path(@book), notice: "Kniha byla úspěšně aktualizována."
       else
-        render :new, status: :unprocessable_entity
+        render :edit, status: :unprocessable_entity
       end
     end
 
