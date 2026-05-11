@@ -2,32 +2,24 @@ require "test_helper"
 
 class MembersControllerTest < ActionDispatch::IntegrationTest
   test "should get index" do
-    get members_index_url
+    get members_url
     assert_response :success
   end
 
   test "should get show" do
-    get members_show_url
+    get member_url(members(:one))
     assert_response :success
   end
 
   test "should get new" do
-    get members_new_url
+    get new_member_url
     assert_response :success
   end
 
-  test "should get create" do
-    get members_create_url
-    assert_response :success
-  end
-
-  test "should get edit" do
-    get members_edit_url
-    assert_response :success
-  end
-
-  test "should get update" do
-    get members_update_url
-    assert_response :success
+  test "should create member" do
+    assert_difference("Member.count") do
+      post members_url, params: { member: { name: "Novy Clen", email: "novy@example.com" } }
+    end
+    assert_redirected_to member_url(Member.last)
   end
 end
