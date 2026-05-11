@@ -2,7 +2,14 @@ class LoansController < ApplicationController
   before_action :set_loan, only: %i[show destroy return_book]
 
   def index
-    @loans = Loan.includes(:book, :member).order(start_date: :desc)
+    @loans = Loan.includes(:book, :member)
+    @loans = case params[:status]
+    when "active"   then @loans.active.where("end_date >= ?", Date.current)
+    when "overdue"  then @loans.active.where("end_date < ?", Date.current)
+    when "returned" then @loans.returned
+    else                 @loans
+    end
+    @loans = @loans.order(start_date: :desc)
   end
 
   def show

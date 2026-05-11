@@ -5,7 +5,13 @@
     <%= link_to "+ Přidat novou knihu", new_book_path, class: "btn btn-primary" %>
   </header>
 
-
+  <%= form_with url: books_path, method: :get, class: "search-bar" do |f| %>
+    <%= f.text_field :search, placeholder: "Hledat podle názvu...", value: params[:search], class: "form-input search-input" %>
+    <%= f.submit "Hledat", class: "btn btn-primary" %>
+    <% if params[:search].present? %>
+      <%= link_to "Zrušit", books_path, class: "btn btn-secondary" %>
+    <% end %>
+  <% end %>
 
   <% if @books.any? %>
     <div class="table-wrapper">
@@ -15,7 +21,7 @@
             <th>Název</th>
             <th>Autor</th>
             <th>ISBN</th>
-            <th>Počet</th>  
+            <th>Počet</th>
             <th class="actions-header">Akce</th>
           </tr>
         </thead>
@@ -25,7 +31,7 @@
               <td class="book-title"><%= book.title %></td>
               <td><%= book.author %></td>
               <td class="isbn"><%= book.isbn %></td>
-              <td><%= book.quantity %></td> 
+              <td><%= book.quantity %></td>
               <td class="actions">
                 <%= link_to "Detail", book_path(book), class: "btn btn-sm btn-info" %>
                 <%= link_to "Upravit", edit_book_path(book), class: "btn btn-sm btn-warning" %>
@@ -37,6 +43,11 @@
           <% end %>
         </tbody>
       </table>
+    </div>
+  <% elsif params[:search].present? %>
+    <div class="empty-state">
+      <p>Žádná kniha neodpovídá hledanému výrazu "<strong><%= params[:search] %></strong>".</p>
+      <%= link_to "Zobrazit všechny knihy", books_path, class: "btn btn-secondary" %>
     </div>
   <% else %>
     <div class="empty-state">

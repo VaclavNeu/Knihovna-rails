@@ -5,7 +5,13 @@
     <%= link_to "+ Přidat člena", new_member_path, class: "btn btn-primary" %>
   </header>
 
-  
+  <%= form_with url: members_path, method: :get, class: "search-bar" do |f| %>
+    <%= f.text_field :search, placeholder: "Hledat podle jména...", value: params[:search], class: "form-input search-input" %>
+    <%= f.submit "Hledat", class: "btn btn-primary" %>
+    <% if params[:search].present? %>
+      <%= link_to "Zrušit", members_path, class: "btn btn-secondary" %>
+    <% end %>
+  <% end %>
 
   <% if @members.any? %>
     <div class="table-wrapper">
@@ -29,6 +35,11 @@
           <% end %>
         </tbody>
       </table>
+    </div>
+  <% elsif params[:search].present? %>
+    <div class="empty-state">
+      <p>Žádný člen neodpovídá hledanému výrazu "<strong><%= params[:search] %></strong>".</p>
+      <%= link_to "Zobrazit všechny členy", members_path, class: "btn btn-secondary" %>
     </div>
   <% else %>
     <div class="empty-state">

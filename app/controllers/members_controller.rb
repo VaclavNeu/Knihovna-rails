@@ -2,7 +2,11 @@ class MembersController < ApplicationController
   before_action :set_member, only: %i[show destroy]
 
   def index
-    @members = Member.all
+    @members = if params[:search].present?
+      Member.where("name LIKE ?", "%#{params[:search]}%")
+    else
+      Member.all
+    end
   end
 
   def show
