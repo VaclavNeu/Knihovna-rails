@@ -10,9 +10,9 @@ Technologie
 
 Modely
 
-- **Book** — kniha v katalogu (title, author, isbn, quantity, description)
-- **Member** — registrovaný člen knihovny (name, email)
-- **Loan** — výpůjčka knihy členem (start_date, end_date, returned_at)
+B kniha v katalogu (title, author, isbn, quantity, description)
+MEMBER - registrovaný člen knihovny (name, email)
+LOAN - výpůjčka knihy členem (start_date, end_date, returned_at)
 
 Asociace:
 - Book has_many Loans, has_many Members through Loans
