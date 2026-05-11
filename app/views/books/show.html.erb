@@ -1,0 +1,46 @@
+<div class="page-container">
+ 
+
+  <div class="detail-card">
+    <header class="detail-header">
+      <h1><%= @book.title %></h1>
+      <p class="detail-subtitile">od <strong><%= @book.author %></strong></p>
+    </header>
+      <% if @book.description.present? %>
+        <div class="book-description">
+         <%= simple_format(@book.description) %>
+        </div>
+      <% end %>
+
+    <dl class="detail-meta">
+      <div class="meta-row">
+        <dt>ISBN</dt>
+        <dd class="isbn"><%= @book.isbn.presence%></dd>
+      </div>
+   
+      <div class="meta-row">
+        <dt>Počet výtisků</dt>
+        <dd><%= @book.quantity %></dd>
+      </div>
+      <div class="meta-row">
+        <dt>Dostupnost</dt>
+        <dd>
+          <strong><%= @book.available_count %></strong> z <%= @book.quantity %>
+          <% if @book.available? %>
+            <span class="status-badge status-active">K dispozici</span>
+          <% else %>
+            <span class="status-badge status-overdue">Vše vypůjčeno</span>
+          <% end %>
+        </dd>
+      </div>
+    </dl>
+
+    <div class="detail-actions">
+      <%= link_to "← Zpět na seznam", books_path, class: "btn btn-secondary" %>
+      <%= link_to "Upravit", edit_book_path(@book), class: "btn btn-warning" %>
+      <%= link_to "Smazat", book_path(@book),
+          data: { turbo_method: :delete, turbo_confirm: "Opravdu chcete smazat tuto knihu?" },
+          class: "btn btn-danger" %>
+    </div>
+  </div>
+</div>

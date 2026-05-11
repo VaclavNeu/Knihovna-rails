@@ -1,0 +1,73 @@
+<div class="page-container">
+ 
+
+  <div class="detail-card">
+    <header class="detail-header">
+      <h1><%= @member.name %></h1>
+      <p class="detail-subtitile"><%= @member.email %></p>
+    </header>
+
+    <dl class="detail-meta">
+      <div class="meta-row">
+        <dt>Registrován</dt>
+        <dd><%= @member.created_at.strftime("%d. %m. %Y") %></dd>
+      </div>
+      <div class="meta-row">
+        <dt>Počet výpůjček</dt>
+        <dd><%= @member.loans.count %></dd>
+      </div>
+    </dl>
+
+    <section class="loans-section">
+      <h2>Výpůjčky</h2>
+
+      <% if @member.loans.any? %>
+        <div class="table-wrapper">
+          <table class="books-table">
+            <thead>
+              <tr>
+                <th>Kniha</th>
+                <th>Autor</th>
+                <th>Od</th>
+                <th>Do</th>
+                <th>Stav</th>
+              </tr>
+            </thead>
+            <tbody>
+              <% @member.loans.includes(:book).order(start_date: :desc).each do |loan| %>
+                <tr class="<%= loan_row_class(loan) %>">
+                  <td class="book-title"><%= loan.book.title %></td>
+                  <td><%= loan.book.author %></td>
+                  <td><%= loan.start_date.strftime("%d. %m. %Y") %></td>
+                  <td><%= loan.end_date.strftime("%d. %m. %Y") %></td>
+                  <td>
+                    <% if loan.returned? %>
+                      <span class="status-badge status-returned">Vrácena</span>
+                    <% elsif loan.end_date < Date.current %>
+                      <span class="status-badge status-overdue">Po termínu</span>
+                    <% elsif loan.end_date == Date.current %>
+                      <span class="status-badge status-due">Vrátit dnes</span>
+                    <% else %>
+                      <span class="status-badge status-active">Aktivní</span>
+                    <% end %>
+                  </td>
+                </tr>
+              <% end %>
+            </tbody>
+          </table>
+        </div>
+      <% else %>
+        <div class="empty-state-inline">
+          <p>Tento člen zatím nemá žádné výpůjčky.</p>
+        </div>
+      <% end %>
+    </section>
+
+    <div class="detail-actions">
+  <%= link_to "← Zpět na seznam", members_path, class: "btn btn-secondary" %>
+  <%= link_to "Smazat", member_path(@member),
+      data: { turbo_method: :delete, turbo_confirm: "Opravdu chcete smazat tohoto člena?" },
+      class: "btn btn-danger" %>
+</div>
+  </div>
+</div>

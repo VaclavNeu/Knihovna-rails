@@ -1,0 +1,33 @@
+.book-title {
+  font-weight: 600;
+}
+
+.isbn {
+  font-family: "Courier New", monospace;
+  font-size: 0.875rem;
+  color: var(--text-muted);
+}
+.book-description {
+  margin-bottom: 2rem;
+  padding: 1.25rem;
+  background: var(--bg-light);
+  border-radius: var(--radius);
+  border-left: 4px solid var(--primary);
+}
+
+.book-description p {
+  margin: 0 0 0.75rem 0;
+  line-height: 1.6;
+  color: var(--text-dark);
+}
+
+.book-description p:last-child {
+  margin-bottom: 0;
+}
+
+.form-textarea {
+  resize: vertical;
+  min-height: 100px;
+  font-family: inherit;
+  line-height: 1.5;
+}

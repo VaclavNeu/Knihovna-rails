@@ -1,0 +1,43 @@
+<%= form_with model: loan, class: "form-card" do |form| %>
+  <% if loan.errors.any? %>
+    <div class="error-explanation">
+      <h2><%= pluralize(loan.errors.count, "chyba") %> brání uložení výpůjčky:</h2>
+      <ul>
+        <% loan.errors.full_messages.each do |message| %>
+          <li><%= message %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="form-group">
+    <%= form.label :book_id, "Kniha", class: "form-label" %>
+    <%= form.collection_select :book_id, Book.order(:title), :id, :title,
+        { prompt: "-- Vyberte knihu --" },
+        { class: "form-input" } %>
+  </div>
+
+  <div class="form-group">
+    <%= form.label :member_id, "Člen", class: "form-label" %>
+    <%= form.collection_select :member_id, Member.order(:name), :id, :name,
+        { prompt: "-- Vyberte člena --" },
+        { class: "form-input" } %>
+  </div>
+
+  <div class="form-row">
+    <div class="form-group">
+      <%= form.label :start_date, "Datum zapůjčení", class: "form-label" %>
+      <%= form.date_field :start_date, class: "form-input", value: loan.start_date || Date.current %>
+    </div>
+
+    <div class="form-group">
+      <%= form.label :end_date, "Datum vrácení", class: "form-label" %>
+      <%= form.date_field :end_date, class: "form-input", value: loan.end_date || Date.current + 14.days %>
+    </div>
+  </div>
+
+  <div class="form-actions">
+    <%= form.submit class: "btn btn-primary" %>
+    <%= link_to "Zpět", loans_path, class: "btn btn-secondary" %>
+  </div>
+<% end %>

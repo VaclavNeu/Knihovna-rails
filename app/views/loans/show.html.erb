@@ -1,0 +1,67 @@
+<div class="page-container">
+ 
+
+  <div class="detail-card">
+    <header class="detail-header">
+      <h1>Výpůjčka #<%= @loan.id %></h1>
+      <p class="detail-subtitle"><%= @loan.book.title %> → <%= @loan.member.name %></p>
+    </header>
+
+    <dl class="detail-meta">
+      <div class="meta-row">
+        <dt>Kniha</dt>
+        <dd>
+          <%= link_to @loan.book.title, book_path(@loan.book) %>
+          <span class="muted">(<%= @loan.book.author %>)</span>
+        </dd>
+      </div>
+      <div class="meta-row">
+        <dt>Člen</dt>
+        <dd>
+          <%= link_to @loan.member.name, member_path(@loan.member) %>
+          <span class="muted">(<%= @loan.member.email %>)</span>
+        </dd>
+      </div>
+      <div class="meta-row">
+        <dt>Datum zapůjčení</dt>
+        <dd><%= @loan.start_date.strftime("%d. %m. %Y") %></dd>
+      </div>
+      <div class="meta-row">
+        <dt>Datum vrácení</dt>
+        <dd><%= @loan.end_date.strftime("%d. %m. %Y") %></dd>
+      </div>
+      <div class="meta-row">
+        <dt>Délka výpůjčky</dt>
+        <dd><%= (@loan.end_date - @loan.start_date).to_i %> dní</dd>
+      </div>
+      <div class="meta-row">
+        <dt>Stav</dt>
+        <dd>
+          <% if @loan.returned? %>
+            <span class="status-badge status-active">Vrácena <%= @loan.returned_at.strftime("%d. %m. %Y") %></span>
+          <% elsif @loan.end_date < Date.current %>
+            <span class="status-badge status-overdue">Po termínu</span>
+          <% elsif @loan.end_date == Date.current %>
+            <span class="status-badge status-due">Vrátit dnes</span>
+          <% else %>
+            <span class="status-badge status-active">Aktivní</span>
+          <% end %>
+        </dd>
+      </div>
+    </dl>
+
+    <div class="detail-actions">
+      <%= link_to "← Zpět na seznam", loans_path, class: "btn btn-secondary" %>
+      
+      <% unless @loan.returned? %>
+         <%= link_to "Vrátit knihu", return_book_loan_path(@loan),
+          data: { turbo_method: :patch, turbo_confirm: "Označit knihu jako vrácenou?" },
+        class: "btn btn-primary" %>
+      <% end %>
+      
+      <%= link_to "Smazat", loan_path(@loan),
+          data: { turbo_method: :delete, turbo_confirm: "Opravdu smazat tuto výpůjčku?" },
+          class: "btn btn-danger" %>
+    </div>
+  </div>
+</div>

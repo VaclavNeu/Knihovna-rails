@@ -1,0 +1,47 @@
+.status-badge {
+  display: inline-block;
+  padding: 0.25rem 0.75rem;
+  border-radius: 999px;
+  font-size: 0.8rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.03em;
+}
+
+.status-active {
+  background: #d1fae5;
+  color: #065f46;
+}
+
+.status-due {
+  background: #fef3c7;
+  color: #92400e;
+}
+
+.status-overdue {
+  background: #fee2e2;
+  color: #991b1b;
+}
+tr.row-active {
+  background: #fef9c3;
+}
+
+tr.row-active:hover {
+  background: #fef08a;
+}
+
+tr.row-due {
+  background: #fed7aa;
+}
+
+tr.row-due:hover {
+  background: #fdba74;
+}
+
+tr.row-overdue {
+  background: #fecaca;
+}
+
+tr.row-overdue:hover {
+  background: #fca5a5;
+}

@@ -1,0 +1,39 @@
+<div class="page-container">
+  <header class="page-header">
+    <h1>Členové</h1>
+    <p class="subtitle">Přehled registrovaných členů knihovny</p>
+    <%= link_to "+ Přidat člena", new_member_path, class: "btn btn-primary" %>
+  </header>
+
+  
+
+  <% if @members.any? %>
+    <div class="table-wrapper">
+      <table class="books-table">
+        <thead>
+          <tr>
+            <th>Jméno</th>
+            <th>Email</th>
+            <th class="actions-header">Akce</th>
+          </tr>
+        </thead>
+        <tbody>
+          <% @members.each do |member| %>
+            <tr>
+              <td class="book-title"><%= member.name %></td>
+              <td><%= member.email %></td>
+              <td class="actions">
+                <%= link_to "Detail", member_path(member), class: "btn btn-sm btn-info" %>
+              </td>
+            </tr>
+          <% end %>
+        </tbody>
+      </table>
+    </div>
+  <% else %>
+    <div class="empty-state">
+      <p>Zatím tu nejsou žádní členové.</p>
+      <%= link_to "Přidat prvního člena", new_member_path, class: "btn btn-primary" %>
+    </div>
+  <% end %>
+</div>

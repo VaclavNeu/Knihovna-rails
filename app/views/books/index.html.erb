@@ -1,0 +1,47 @@
+<div class="page-container">
+  <header class="page-header">
+    <h1>Knihovna</h1>
+    <p class="subtitle">Přehled všech knih v katalogu</p>
+    <%= link_to "+ Přidat novou knihu", new_book_path, class: "btn btn-primary" %>
+  </header>
+
+
+
+  <% if @books.any? %>
+    <div class="table-wrapper">
+      <table class="books-table">
+        <thead>
+          <tr>
+            <th>Název</th>
+            <th>Autor</th>
+            <th>ISBN</th>
+            <th>Počet</th>  
+            <th class="actions-header">Akce</th>
+          </tr>
+        </thead>
+        <tbody>
+          <% @books.each do |book| %>
+            <tr>
+              <td class="book-title"><%= book.title %></td>
+              <td><%= book.author %></td>
+              <td class="isbn"><%= book.isbn %></td>
+              <td><%= book.quantity %></td> 
+              <td class="actions">
+                <%= link_to "Detail", book_path(book), class: "btn btn-sm btn-info" %>
+                <%= link_to "Upravit", edit_book_path(book), class: "btn btn-sm btn-warning" %>
+                <%= link_to "Smazat", book_path(book),
+                    data: { turbo_method: :delete, turbo_confirm: "Opravdu chcete smazat tuto knihu?" },
+                    class: "btn btn-sm btn-danger" %>
+              </td>
+            </tr>
+          <% end %>
+        </tbody>
+      </table>
+    </div>
+  <% else %>
+    <div class="empty-state">
+      <p>Zatím tu nejsou žádné knihy.</p>
+      <%= link_to "Přidat první knihu", new_book_path, class: "btn btn-primary" %>
+    </div>
+  <% end %>
+</div>

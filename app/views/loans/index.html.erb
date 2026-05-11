@@ -1,0 +1,56 @@
+<div class="page-container">
+  <header class="page-header">
+    <h1>Výpůjčky</h1>
+    <p class="subtitle">Přehled všech výpůjček v knihovně</p>
+    <%= link_to "+ Nová výpůjčka", new_loan_path, class: "btn btn-primary" %>
+  </header>
+
+  <% if @loans.any? %>
+    <div class="table-wrapper">
+      <table class="books-table">
+        <thead>
+          <tr>
+            <th>Kniha</th>
+            <th>Člen</th>
+            <th>Od</th>
+            <th>Do</th>
+            <th>Stav</th>
+            <th class="actions-header">Akce</th>
+          </tr>
+        </thead>
+       <tbody>
+  <% @loans.each do |loan| %>
+  <tr class="<%= loan_row_class(loan) %>">
+    <td class="book-title"><%= loan.book.title %></td>
+    <td><%= loan.member.name %></td>
+    <td><%= loan.start_date.strftime("%d. %m. %Y") %></td>
+    <td><%= loan.end_date.strftime("%d. %m. %Y") %></td>
+    <td>
+      <% if loan.returned? %>
+        <span class="status-badge status-returned">Vrácena</span>
+      <% elsif loan.end_date < Date.current %>
+        <span class="status-badge status-overdue">Po termínu</span>
+      <% elsif loan.end_date == Date.current %>
+        <span class="status-badge status-due">Vrátit dnes</span>
+      <% else %>
+        <span class="status-badge status-active">Aktivní</span>
+      <% end %>
+    </td>
+    <td class="actions">
+      <%= link_to "Detail", loan_path(loan), class: "btn btn-sm btn-info" %>
+      <%= link_to "Smazat", loan_path(loan),
+          data: { turbo_method: :delete, turbo_confirm: "Opravdu smazat tuto výpůjčku?" },
+          class: "btn btn-sm btn-danger" %>
+    </td>
+  </tr>
+<% end %>
+</tbody>
+      </table>
+    </div>
+  <% else %>
+    <div class="empty-state">
+      <p>Zatím tu nejsou žádné výpůjčky.</p>
+      <%= link_to "Vytvořit první výpůjčku", new_loan_path, class: "btn btn-primary" %>
+    </div>
+  <% end %>
+</div>
