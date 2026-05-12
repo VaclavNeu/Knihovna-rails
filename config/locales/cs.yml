@@ -1,0 +1,27 @@
+cs:
+  activerecord:
+    attributes:
+      book:
+        title: "Název"
+        author: "Autor"
+        isbn: "ISBN"
+        quantity: "Počet výtisků"
+        description: "Popis"
+      member:
+        name: "Jméno"
+        email: "E-mail"
+      loan:
+        start_date: "Datum zapůjčení"
+        end_date: "Datum vrácení"
+        book: "Kniha"
+        member: "Člen"
+    errors:
+      messages:
+        blank: "nemůže být prázdné"
+        taken: "již existuje"
+        invalid: "není platné"
+        too_long: "je příliš dlouhé (maximum je %{count} znaků)"
+        too_short: "je příliš krátké (minimum je %{count} znaků)"
+        not_a_number: "není číslo"
+        greater_than_or_equal_to: "musí být větší nebo rovno %{count}"
+        only_integer: "musí být celé číslo"

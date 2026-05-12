@@ -28,6 +28,7 @@ Funkce
 - Automatický výpočet dostupných výtisků
 - Sledování stavu výpůjček (aktivní / po termínu / vrácená)
 - Ochrana proti smazání knih a členů s aktivními výpůjčkami
+- Design byl tvořen AI (css,html)
 
 ## Spuštění
 
