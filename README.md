@@ -1,6 +1,7 @@
 Knihovna
 
-CRUD aplikace v Ruby on Rails pro správu knihovny — knihy, členové a výpůjčky.
+Jednoduchá CRUD aplikace v Ruby on Rails pro správu knihovny — knihy, členové a výpůjčky.
+Do projektu jsem nepřidával autentizaci, protože mi přišlo, že už to nesplňuje jednoduchou CRUD aplikaci, pokud je to ale vyžadováno rád ho přidám.
 
 Technologie
 
@@ -10,7 +11,7 @@ Technologie
 
 Modely
 
-B kniha v katalogu (title, author, isbn, quantity, description)
+BOOK - kniha v katalogu (title, author, isbn, quantity, description)
 MEMBER - registrovaný člen knihovny (name, email)
 LOAN - výpůjčka knihy členem (start_date, end_date, returned_at)
 
@@ -30,7 +31,7 @@ Funkce
 
 ## Spuštění
 
-Je potřeba mít nainstalované Ruby 3.4.9 a MySQL.
+Je potřeba mít nainstalované Ruby, Rails a MySQL.
 
 1. Je potřeba nainstalovat závislosti:
    
@@ -44,7 +45,11 @@ Je potřeba mít nainstalované Ruby 3.4.9 a MySQL.
 
 3. Je potřeba vytvořit databázi a načíst vzorová data:
    
-   bin/rails db:prepare db:seed
+   rails db:prepare db:seed
+
+4. Program je připravený ke spuštění
+
+   rails s
    
 
 
